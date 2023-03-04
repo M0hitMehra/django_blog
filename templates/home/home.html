@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block homeactive %}active{% endblock homeactive %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron my-3  bg-dark-subtle p-5">
+        <h1 class="display-4">Welcome to WeBlogz!</h1>
+        <p class="lead">This is a simple blog page build for learning things about django.</p>
+        <hr class="my-4">
+        <p>This Blog page is made up by <a href="https://www.linkedin.com/in/mohit-mehra-6ba923227" class="text-primary fw-semibold text-decoration-none"  > Mohit Mehra</a> </p>
+        <a class="btn btn-primary btn-lg" href="/blog" role="button">View All Blogs</a>
+    </div>
+</div>
+
+<!-- <div class="container">
+    <h2>Popular Blogposts</h2>
+    <div
+        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">World</strong>
+            <h3 class="mb-0">Featured post</h3>
+            <div class="mb-1 text-muted">Nov 12</div>
+            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to
+                additional content.</p>
+            <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+        
+    </div>
+</div> -->
+
+<div class="container my-5">
+    <h2>Articles By WeBlogz</h2>
+    {% for post in NewPosts %}
+    <div
+        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 my-4 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+            <h3 class="mb-0"><a class="text-reset text-decoration-none" href="/blog/{{post.slug}}"> {{post.title}}</a>
+            </h3>
+            <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+            <p class="card-text mb-auto">
+            <div class="preview"> {{post.content|safe|truncatechars:500}}</div>
+            </p>
+            <div class="my-2">
+
+                <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue reading</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{%block js%}
+
+<script>
+    let previews = document.getElementsByClassName("preview");
+    Array.from(previews).forEach((element) => {
+        element.innerHTML = element.innerText
+    })
+</script>
+
+{% endblock js %}
+{% endblock body %}
